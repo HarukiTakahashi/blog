@@ -2,7 +2,7 @@
 layout: post
 title: 言語化練習「あ」
 excerpt: ..
-date: 2024-XX-XX
+date: 2025-01-01
 tags: Verbalize
 author: Haruki
 ---
