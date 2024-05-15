@@ -149,6 +149,7 @@ var CMS = function (o) {
   var y = function (t, e) {
     this.type = t, this.layout = e, this.files = [], this[t] = this.files
   };
+
   y.prototype = {
     init: function (n) {
       this.getFiles(function (t, e) {
@@ -158,7 +159,9 @@ var CMS = function (o) {
       }.bind(this))
     },
     getFileListUrl: function (t, e) {
-      return "GITHUB" === e.mode ? (n = t, i = e.github, r = [i.host, "repos", i.username, i.repo, "contents", n + "?ref=" + o.github.branch], i.prefix && r.splice(5, 0, i.prefix), r.join("/")) : t;
+      var f = "GITHUB" === e.mode ? (n = t, i = e.github, r = [i.host, "repos", i.username, i.repo, "contents", n + "?ref=" + o.github.branch], i.prefix && r.splice(5, 0, i.prefix), r.join("/")) : t;
+      return f
+
       var n, i, r
     },
     getFileUrl: function (t, e) {
@@ -176,10 +179,19 @@ var CMS = function (o) {
     getFiles: function (n) {
       h(this.getFileListUrl(this.type, o), function (t, e) {
         e && n(t, e), this.getFileElements(t).forEach(function (t) {
+          console.log("!!!" + t);
           var e, n, i, r = this.getFileUrl(t, o.mode);
-          e = r, n = o.extension, ((i = e.split(".").pop()) === n.replace(".", "") || "html" === i) && this.files.push(new b(r, this.type, this.layout.single))
+          var tt = this.type
+          if(tt.indexOf("/")){
+            tt = tt.split("/")[0];
+          }
+
+          e = r, n = o.extension, 
+          ((i = e.split(".").pop()) === n.replace(".", "") || "html" === i) && this.files.push(new b(r, tt, this.layout.single))
+
         }.bind(this)), n(t, e)
       }.bind(this))
+
     },
     loadFiles: function (r) {
       var s = [];
@@ -304,6 +316,7 @@ var CMS = function (o) {
     o.types.forEach(function (t) {
       this.collections[t.name] = new y(t.name, t.layout), r.push(t.name)
     }.bind(this)), r.forEach(function (t, e) {
+      
       this.collections[t].init(function () {
         i.push(e), 0 === t.indexOf("post") && this.collections[t][t].reverse(), r.length == i.length && n()
       }.bind(this))

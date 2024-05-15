@@ -35,15 +35,15 @@ var config = {
   // and single layout template that will determine how the file will be rendered.
   types: [
     {
-    // for example, layouts/post-list.html
-    name: 'posts',
-      layout: { list: 'post-list', single: 'post' },
+      name: 'posts',
+        layout: { list: 'post-list', single: 'post' },
     },
+
     {
       name: 'pages',
       layout: { list: 'page-list', single: 'page' },
     },
-  ],
+  ]
 };
 
 // Initialize CMS.js
